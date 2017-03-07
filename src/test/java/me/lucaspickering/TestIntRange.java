@@ -111,4 +111,18 @@ public class TestIntRange {
             assertTrue("Random value should be in the range", range.contains(r));
         }
     }
+
+    @Test
+    public void testMapTo() {
+        Range<Integer> fromRange;
+        Range<Integer> toRange;
+        fromRange = new IntRange(10, 20);
+        toRange = new IntRange(100, 200);
+
+        assertEquals("Should map to the minimum", fromRange.mapTo(9, toRange).intValue(), 100);
+        assertEquals("Should map to the minimum", fromRange.mapTo(10, toRange).intValue(), 100);
+        assertEquals("Should map to a middle value", fromRange.mapTo(13, toRange).intValue(), 130);
+        assertEquals("Should map to the maximum", fromRange.mapTo(20, toRange).intValue(), 200);
+        assertEquals("Should map to the maximum", fromRange.mapTo(21, toRange).intValue(), 200);
+    }
 }

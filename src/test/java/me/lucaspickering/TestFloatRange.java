@@ -111,4 +111,18 @@ public class TestFloatRange {
             assertTrue("Random value should be in the range", range.contains(r));
         }
     }
+
+    @Test
+    public void testMapTo() {
+        Range<Float> fromRange;
+        Range<Float> toRange;
+        fromRange = new FloatRange(10f, 20f);
+        toRange = new FloatRange(100f, 200f);
+
+        assertEquals("Should map to the minimum", fromRange.mapTo(9f, toRange), 100f, 0f);
+        assertEquals("Should map to the minimum", fromRange.mapTo(10f, toRange), 100f, 0f);
+        assertEquals("Should map to a middle value", fromRange.mapTo(13f, toRange), 130f, 0f);
+        assertEquals("Should map to the maximum", fromRange.mapTo(20f, toRange), 200f, 0f);
+        assertEquals("Should map to the maximum", fromRange.mapTo(21f, toRange), 200f, 0f);
+    }
 }
