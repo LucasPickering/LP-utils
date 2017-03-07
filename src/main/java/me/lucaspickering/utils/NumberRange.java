@@ -59,11 +59,13 @@ public class NumberRange<T extends Number & Comparable<T>> implements Range<T> {
     }
 
     @Override
+    @NotNull
     public T lower() {
         return lowerBound.value;
     }
 
     @Override
+    @NotNull
     public BoundType lowerType() {
         return lowerBound.type;
     }
@@ -74,6 +76,7 @@ public class NumberRange<T extends Number & Comparable<T>> implements Range<T> {
     }
 
     @Override
+    @NotNull
     public BoundType upperType() {
         return upperBound.type;
     }
@@ -88,6 +91,7 @@ public class NumberRange<T extends Number & Comparable<T>> implements Range<T> {
     }
 
     @Override
+    @NotNull
     public T coerce(@NotNull T n) {
         // If the number is less than the lower bound, return the lower bound
         if (lowerBound.compare(n) > 0) {
