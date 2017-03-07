@@ -3,14 +3,16 @@ package me.lucaspickering.utils;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Random;
+
 /**
  * A {@code Range} is a set of numbers that is defined by a lower and upper bound, where each
- * bound has a value and a type (open or closed).
+ * bound has a value and a type (inclusive or exclusive).
  */
 public interface Range<T extends Number & Comparable<T>> {
 
     enum BoundType {
-        OPEN, CLOSED
+        INCLUSIVE, EXCLUSIVE
     }
 
     /**
@@ -21,7 +23,7 @@ public interface Range<T extends Number & Comparable<T>> {
     T lower();
 
     /**
-     * Gets the type of the lower bound of this range (open or closed).
+     * Gets the type of the lower bound of this range (inclusive or exclusive).
      * @return the lower bound type
      */
     @NotNull
@@ -35,7 +37,7 @@ public interface Range<T extends Number & Comparable<T>> {
     T upper();
 
     /**
-     * Gets the type of the upper bound of this range (open or closed).
+     * Gets the type of the upper bound of this range (inclusive or exclusive).
      * @return the upper bound type
      */
     @NotNull
@@ -58,12 +60,20 @@ public interface Range<T extends Number & Comparable<T>> {
      *
      * Note that the returned value is not necessarily in this range, i.e.
      * {@code contains(coerce(n))} doesn't always return {@code true}. This is only the case when
-     * the number is coerced to an open bound. The coerced number will be the value of the bound,
-     * but the range does not include that value because the bound is open.
+     * the number is coerced to an exclusive bound. The coerced number will be the value of the
+     * bound, but the range does not include that value because the bound is exclusive.
      * @param n the number to be coerced
      * @return the coerced number
      */
     @NotNull
     T coerce(@NotNull T n);
 
+    /**
+     * Returns a randomly-selected value this is in this range. All values in this range have an
+     * equal chance of being selected.
+     * @param random the {@link Random} instance to use
+     * @return a randomly-selected value in this range
+     */
+    @NotNull
+    T randomIn(@NotNull Random random);
 }

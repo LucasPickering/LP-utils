@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-public class NumberRange<T extends Number & Comparable<T>> implements Range<T> {
+abstract class NumberRange<T extends Number & Comparable<T>> implements Range<T> {
 
     /**
      * Represents one bound in a range, made up of a value and type.
@@ -24,7 +24,7 @@ public class NumberRange<T extends Number & Comparable<T>> implements Range<T> {
         }
 
         private boolean includesValue(@NotNull T n) {
-            return type == BoundType.CLOSED && value.equals(n);
+            return type == BoundType.INCLUSIVE && value.equals(n);
         }
 
         private int compare(@NotNull T n) {
@@ -43,7 +43,7 @@ public class NumberRange<T extends Number & Comparable<T>> implements Range<T> {
      * @param upperBound the value of the upper bound
      */
     public NumberRange(@NotNull T lowerBound, @NotNull T upperBound) {
-        this(lowerBound, BoundType.CLOSED, upperBound, BoundType.CLOSED);
+        this(lowerBound, BoundType.INCLUSIVE, upperBound, BoundType.INCLUSIVE);
     }
 
     /**
@@ -51,9 +51,9 @@ public class NumberRange<T extends Number & Comparable<T>> implements Range<T> {
      * bound must be less than or equal to the upper bound
      *
      * @param lowerBound     the value of the lower bound
-     * @param lowerBoundType the type of the lower bound (open/closed)
+     * @param lowerBoundType the type of the lower bound
      * @param upperBound     the value of the upper bound
-     * @param upperBoundType the type of the upper bound (open/closed)
+     * @param upperBoundType the type of the upper bound
      */
     public NumberRange(@NotNull T lowerBound, @NotNull BoundType lowerBoundType,
                        @NotNull T upperBound, @NotNull BoundType upperBoundType) {
