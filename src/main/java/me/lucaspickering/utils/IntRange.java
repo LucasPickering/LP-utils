@@ -35,4 +35,14 @@ public class IntRange extends NumberRange<Integer> {
 
         return lower + random.nextInt(upper - lower);
     }
+
+    @Override
+    @NotNull
+    public Integer mapTo(@NotNull Integer n, @NotNull Range<Integer> targetRange) {
+        n = coerce(n); // Coerce n into this range first
+        final int fromSpan = upper() - lower(); // Get the span of this range
+        final float halfMapped = (n - lower()) / (float) fromSpan; // Map to [0, 1]
+        final int toSpan = targetRange.upper() - targetRange.lower();
+        return (int) (halfMapped * toSpan) + targetRange.lower(); // Now map to otherRange
+    }
 }

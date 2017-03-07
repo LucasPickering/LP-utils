@@ -99,4 +99,21 @@ public interface Range<T extends Number & Comparable<T>> {
      */
     @NotNull
     T randomIn(@NotNull Random random);
+
+    /**
+     * Maps the given value from this range into the given range. First, if the given value isn't
+     * in this range, it is coerced into it (using {@link #coerce}). Then, the coerced value is
+     * proportionally mapped to the target range. If the value is the minimum of this range, it
+     * will become the minimum of the second. If it's the max of this range, it becomes the max
+     * of the second. If it is halfway between the min and max of this range, it becomes halfway
+     * between the min and max of the target, etc. The type of each bound is not relevant; each
+     * bound is effectively considered to be inclusive. As such, the mapped value is not
+     * guaranteed to be in the target range (it could be equal to an exclusive bound of that range).
+     *
+     * @param n           the value to map
+     * @param targetRange the range to map to
+     * @return the mapped value
+     */
+    @NotNull
+    T mapTo(@NotNull T n, @NotNull Range<T> targetRange);
 }
