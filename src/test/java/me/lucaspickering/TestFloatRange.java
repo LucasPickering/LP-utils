@@ -83,29 +83,8 @@ public class TestFloatRange {
         final Random random = new Random();
         final int iterations = 50;
 
-        range = new FloatRange(10f, Range.BoundType.EXCLUSIVE,
-                               15f, Range.BoundType.EXCLUSIVE);
-        for (int i = 0; i < iterations; i++) {
-            final float r = range.randomIn(random);
-            assertTrue("Random value should be in the range", range.contains(r));
-        }
-
         range = new FloatRange(10f, Range.BoundType.INCLUSIVE,
                                15f, Range.BoundType.EXCLUSIVE);
-        for (int i = 0; i < iterations; i++) {
-            final float r = range.randomIn(random);
-            assertTrue("Random value should be in the range", range.contains(r));
-        }
-
-        range = new FloatRange(10f, Range.BoundType.EXCLUSIVE,
-                               15f, Range.BoundType.INCLUSIVE);
-        for (int i = 0; i < iterations; i++) {
-            final float r = range.randomIn(random);
-            assertTrue("Random value should be in the range", range.contains(r));
-        }
-
-        range = new FloatRange(10f, Range.BoundType.INCLUSIVE,
-                               15f, Range.BoundType.INCLUSIVE);
         for (int i = 0; i < iterations; i++) {
             final float r = range.randomIn(random);
             assertTrue("Random value should be in the range", range.contains(r));

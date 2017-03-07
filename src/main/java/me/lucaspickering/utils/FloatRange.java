@@ -16,9 +16,21 @@ public class FloatRange extends NumberRange<Float> {
         super(lowerBound, lowerBoundType, upperBound, upperBoundType);
     }
 
+    /**
+     * This is only supported for ranges with an inclusive lower bound and exclusive upper bound,
+     * as that is the style of value that {@link Random#nextFloat} returns.
+     *
+     * {@inheritDoc}
+     */
     @NotNull
     @Override
     public Float randomIn(@NotNull Random random) {
-        throw new UnsupportedOperationException();
+        // We only support inclusive,exclusive for this operation
+        if (lowerType() != BoundType.INCLUSIVE || upperType() != BoundType.EXCLUSIVE) {
+            throw new UnsupportedOperationException();
+        }
+
+        final float span = upper() - lower();
+        return lower() + random.nextFloat() * span;
     }
 }
