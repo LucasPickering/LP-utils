@@ -116,4 +116,11 @@ abstract class NumberRange<T extends Number & Comparable<T>> implements Range<T>
         // Value is in the range, just return it
         return n;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%c%s, %s%c",
+                             lowerType().getLowerSymbol(), lower(),
+                             upper(), upperType().getUpperSymbol());
+    }
 }

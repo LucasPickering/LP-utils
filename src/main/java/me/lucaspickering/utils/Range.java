@@ -12,11 +12,28 @@ import java.util.Random;
 public interface Range<T extends Number & Comparable<T>> {
 
     enum BoundType {
-        INCLUSIVE, EXCLUSIVE
+        INCLUSIVE('[', ']'), EXCLUSIVE('(', ')');
+
+        private final char lowerSymbol;
+        private final char upperSymbol;
+
+        BoundType(char lowerSymbol, char upperSymbol) {
+            this.lowerSymbol = lowerSymbol;
+            this.upperSymbol = upperSymbol;
+        }
+
+        char getLowerSymbol() {
+            return lowerSymbol;
+        }
+
+        char getUpperSymbol() {
+            return upperSymbol;
+        }
     }
 
     /**
      * Gets the value of the lower bound of this range.
+     *
      * @return the lower bound value
      */
     @NotNull
@@ -24,6 +41,7 @@ public interface Range<T extends Number & Comparable<T>> {
 
     /**
      * Gets the type of the lower bound of this range (inclusive or exclusive).
+     *
      * @return the lower bound type
      */
     @NotNull
@@ -31,6 +49,7 @@ public interface Range<T extends Number & Comparable<T>> {
 
     /**
      * Gets the value of the upper bound of this range.
+     *
      * @return the upper bound value
      */
     @NotNull
@@ -38,6 +57,7 @@ public interface Range<T extends Number & Comparable<T>> {
 
     /**
      * Gets the type of the upper bound of this range (inclusive or exclusive).
+     *
      * @return the upper bound type
      */
     @NotNull
@@ -47,6 +67,7 @@ public interface Range<T extends Number & Comparable<T>> {
      * Determines if the given value is in this range. A value is in the range if it is strictly
      * between the two bounds, or if it is equal to the lower bound and that bound is closed, or
      * it is equal to the upper bound and that bound is closed.
+     *
      * @param n the number to check
      * @return {@code true} if {@code n} is in this range, {@code false} otherwise
      */
@@ -62,6 +83,7 @@ public interface Range<T extends Number & Comparable<T>> {
      * {@code contains(coerce(n))} doesn't always return {@code true}. This is only the case when
      * the number is coerced to an exclusive bound. The coerced number will be the value of the
      * bound, but the range does not include that value because the bound is exclusive.
+     *
      * @param n the number to be coerced
      * @return the coerced number
      */
@@ -71,6 +93,7 @@ public interface Range<T extends Number & Comparable<T>> {
     /**
      * Returns a randomly-selected value this is in this range. All values in this range have an
      * equal chance of being selected.
+     *
      * @param random the {@link Random} instance to use
      * @return a randomly-selected value in this range
      */
