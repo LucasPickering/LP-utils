@@ -38,6 +38,7 @@ public class NumberRange<T extends Number & Comparable<T>> implements Range<T> {
     /**
      * Constructs a new {@code NumberRange} with the given bound values, where both bounds are
      * closed.
+     *
      * @param lowerBound the value of the lower bound
      * @param upperBound the value of the upper bound
      */
@@ -46,14 +47,22 @@ public class NumberRange<T extends Number & Comparable<T>> implements Range<T> {
     }
 
     /**
-     * Constructs a new {@code NumberRange} with the given bound values and types.
-     * @param lowerBound the value of the lower bound
+     * Constructs a new {@code NumberRange} with the given bound values and types. The lower
+     * bound must be less than or equal to the upper bound
+     *
+     * @param lowerBound     the value of the lower bound
      * @param lowerBoundType the type of the lower bound (open/closed)
-     * @param upperBound the value of the upper bound
+     * @param upperBound     the value of the upper bound
      * @param upperBoundType the type of the upper bound (open/closed)
      */
     public NumberRange(@NotNull T lowerBound, @NotNull BoundType lowerBoundType,
                        @NotNull T upperBound, @NotNull BoundType upperBoundType) {
+        // Check if lower > upper
+        if (lowerBound.compareTo(upperBound) > 0) {
+            throw new IllegalArgumentException(String.format(
+                "Lower bound cannot be greater than upper bound. Lower [%s]; Upper [%s]",
+                lowerBound, upperBound));
+        }
         this.lowerBound = new Bound(lowerBound, lowerBoundType);
         this.upperBound = new Bound(upperBound, upperBoundType);
     }
@@ -71,6 +80,7 @@ public class NumberRange<T extends Number & Comparable<T>> implements Range<T> {
     }
 
     @Override
+    @NotNull
     public T upper() {
         return upperBound.value;
     }
