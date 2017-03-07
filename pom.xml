@@ -1,6 +1,6 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>LP-utils</groupId>
+    <groupId>me.lucaspickering</groupId>
     <artifactId>LP-utils</artifactId>
     <version>1.0.0</version>
     <properties>

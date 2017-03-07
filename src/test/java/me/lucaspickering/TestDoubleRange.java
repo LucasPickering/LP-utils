@@ -65,16 +65,16 @@ public class TestDoubleRange {
         assertEquals("Should return same value", 3.6, range.coerce(3.6), 0.0);
         assertEquals("Should return same value", 5.0, range.coerce(5.0), 0.0);
         assertEquals("Should return same value", 10.4, range.coerce(10.4), 0.0);
-        assertEquals("Should return upper bound value", 10.4f, range.coerce(10.5), 0.0);
+        assertEquals("Should return upper bound value", 10.4, range.coerce(10.5), 0.0);
 
         // Try a closed,closed range (should be the same)
         range = new DoubleRange(3.6, Range.BoundType.INCLUSIVE,
                                 10.4, Range.BoundType.INCLUSIVE);
-        assertEquals("Should return lower bound value", 3.6f, range.coerce(3.5), 0.0);
-        assertEquals("Should return same value", 3.6f, range.coerce(3.6), 0.0);
-        assertEquals("Should return same value", 5f, range.coerce(5.0), 0.0);
-        assertEquals("Should return same value", 10.4f, range.coerce(10.4), 0.0);
-        assertEquals("Should return upper bound value", 10.4f, range.coerce(10.5), 0.0);
+        assertEquals("Should return lower bound value", 3.6, range.coerce(3.5), 0.0);
+        assertEquals("Should return same value", 3.6, range.coerce(3.6), 0.0);
+        assertEquals("Should return same value", 5.0, range.coerce(5.0), 0.0);
+        assertEquals("Should return same value", 10.4, range.coerce(10.4), 0.0);
+        assertEquals("Should return upper bound value", 10.4, range.coerce(10.5), 0.0);
     }
 
     @Test
