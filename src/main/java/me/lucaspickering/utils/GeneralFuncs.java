@@ -9,9 +9,9 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.function.Function;
 
-public class Funcs {
+public class GeneralFuncs {
 
-    private Funcs() {
+    private GeneralFuncs() {
         // Don't allow instantiation
     }
 
