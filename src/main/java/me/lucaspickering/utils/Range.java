@@ -1,6 +1,7 @@
 package me.lucaspickering.utils;
 
-import com.sun.istack.internal.NotNull;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A {@code Range} is a set of numbers that is defined by a lower and upper bound, where each

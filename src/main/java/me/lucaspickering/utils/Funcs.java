@@ -111,24 +111,6 @@ public class Funcs {
     }
 
     /**
-     * Coerces the given value into the range {@code [min, max]}.
-     *
-     * @param min the minimum of the range
-     * @param x   the value to be coerced
-     * @param max the maximum of the range
-     * @return the coerced value
-     */
-    public static double coerce(double min, double x, double max) {
-        if (x < min) {
-            return min;
-        }
-        if (x > max) {
-            return max;
-        }
-        return x;
-    }
-
-    /**
      * Applies a random amount of slop to the given value.
      *
      * @param random  the {@link Random} to use
