@@ -1,6 +1,6 @@
 package me.lucaspickering.utils;
 
-import com.sun.istack.internal.NotNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.LinkedList;
