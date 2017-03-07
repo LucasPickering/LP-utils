@@ -31,14 +31,14 @@ public class Funcs {
         // Exception will be thrown if the collection is empty
         return coll.stream()
             .findFirst()
-            .orElseThrow(() -> new IllegalArgumentException("Collection cannot be empty"));
+            .orElseThrow(() -> new IllegalArgumentException("Collection is empty"));
     }
 
     /**
      * Randomly selects one element from the given non-empty collection. Each element has an equal
      * chance of being chosen.
      *
-     * @param random the {@link Random} to generate numbers from
+     * @param random the {@link Random} to generate numbers from (non-null)
      * @param coll   the collection to be chosen from (non-null, non-empty)
      * @param <T>    the type of the element in the collection
      * @return one randomly-selected, even-distributed element from the given collection
@@ -47,15 +47,12 @@ public class Funcs {
     public static <T> T randomFromCollection(@NotNull Random random, @NotNull Collection<T> coll) {
         Objects.requireNonNull(random);
         Objects.requireNonNull(coll);
-        if (coll.isEmpty()) {
-            throw new IllegalArgumentException("Collection cannot be empty");
-        }
 
-        // Select a random element from the collection, exception can never be thrown
+        // Select a random element from the collection, exception is thrown if coll is empty
         return coll.stream()
             .skip(random.nextInt(coll.size()))
             .findFirst()
-            .orElseThrow(() -> new AssertionError("Can't get here"));
+            .orElseThrow(() -> new IllegalArgumentException("Collection is empty"));
     }
 
     /**
