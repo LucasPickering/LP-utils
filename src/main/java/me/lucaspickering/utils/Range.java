@@ -6,7 +6,7 @@ import com.sun.istack.internal.NotNull;
  * A {@code Range} is a set of numbers that is defined by a lower and upper bound, where each
  * bound has a value and a type (open or closed).
  */
-public interface Range {
+public interface Range<T extends Number & Comparable<T>> {
 
     enum BoundType {
         OPEN, CLOSED
@@ -17,7 +17,7 @@ public interface Range {
      * @return the lower bound value
      */
     @NotNull
-    Number lower();
+    T lower();
 
     /**
      * Gets the type of the lower bound of this range (open or closed).
@@ -31,7 +31,7 @@ public interface Range {
      * @return the upper bound value
      */
     @NotNull
-    Number upper();
+    T upper();
 
     /**
      * Gets the type of the upper bound of this range (open or closed).
@@ -47,7 +47,7 @@ public interface Range {
      * @param n the number to check
      * @return {@code true} if {@code n} is in this range, {@code false} otherwise
      */
-    boolean contains(@NotNull Number n);
+    boolean contains(@NotNull T n);
 
     /**
      * Coerces the given value into this range. A number is coerced by forcing it into the range.
@@ -63,6 +63,6 @@ public interface Range {
      * @return the coerced number
      */
     @NotNull
-    Number coerce(@NotNull Number n);
+    T coerce(@NotNull T n);
 
 }
