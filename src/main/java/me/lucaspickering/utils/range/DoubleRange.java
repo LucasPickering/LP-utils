@@ -1,4 +1,4 @@
-package me.lucaspickering.utils;
+package me.lucaspickering.utils.range;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -8,12 +8,27 @@ public class DoubleRange extends NumberRange<Double> {
 
     public DoubleRange(@NotNull Double lowerBound,
                        @NotNull Double upperBound) {
-        super(lowerBound, upperBound);
+        super( lowerBound, upperBound);
     }
 
     public DoubleRange(@NotNull Double lowerBound, BoundType lowerBoundType,
                        @NotNull Double upperBound, BoundType upperBoundType) {
-        super(lowerBound, lowerBoundType, upperBound, upperBoundType);
+        super( lowerBound, lowerBoundType, upperBound, upperBoundType);
+    }
+
+    @Override
+    Double cast(Number value) {
+        return value.doubleValue();
+    }
+
+    @Override
+    Double plus(Double value1, Double value2) {
+        return value1 + value2;
+    }
+
+    @Override
+    Double minus(Double value1, Double value2) {
+        return value1 - value2;
     }
 
     @NotNull
@@ -35,15 +50,5 @@ public class DoubleRange extends NumberRange<Double> {
 
         final double span = upper - lower;
         return lower + random.nextDouble() * span;
-    }
-
-    @Override
-    @NotNull
-    public Double mapTo(@NotNull Double n, @NotNull Range<Double> targetRange) {
-        n = coerce(n); // Coerce n into this range first
-        final double fromSpan = upper() - lower(); // Get the span of this range
-        final double halfMapped = (n - lower()) / fromSpan; // Map to [0, 1]
-        final double toSpan = targetRange.upper() - targetRange.lower();
-        return halfMapped * toSpan + targetRange.lower(); // Now map to otherRange
     }
 }

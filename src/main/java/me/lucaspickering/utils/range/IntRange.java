@@ -1,10 +1,11 @@
-package me.lucaspickering.utils;
+package me.lucaspickering.utils.range;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
 public class IntRange extends NumberRange<Integer> {
+
 
     public IntRange(@NotNull Integer lowerBound,
                     @NotNull Integer upperBound) {
@@ -14,6 +15,27 @@ public class IntRange extends NumberRange<Integer> {
     public IntRange(@NotNull Integer lowerBound, BoundType lowerBoundType,
                     @NotNull Integer upperBound, BoundType upperBoundType) {
         super(lowerBound, lowerBoundType, upperBound, upperBoundType);
+    }
+
+    @Override
+    Integer cast(Number value) {
+        return value.intValue();
+    }
+
+    @Override
+    Integer plus(Integer value1, Integer value2) {
+        return value1 + value2;
+    }
+
+    @Override
+    Integer minus(Integer value1, Integer value2) {
+        return value1 - value2;
+    }
+
+    @NotNull
+    @Override
+    public Integer span() {
+        return upper() - lower();
     }
 
     @NotNull
@@ -34,15 +56,5 @@ public class IntRange extends NumberRange<Integer> {
         }
 
         return lower + random.nextInt(upper - lower);
-    }
-
-    @Override
-    @NotNull
-    public Integer mapTo(@NotNull Integer n, @NotNull Range<Integer> targetRange) {
-        n = coerce(n); // Coerce n into this range first
-        final int fromSpan = upper() - lower(); // Get the span of this range
-        final float halfMapped = (n - lower()) / (float) fromSpan; // Map to [0, 1]
-        final int toSpan = targetRange.upper() - targetRange.lower();
-        return (int) (halfMapped * toSpan) + targetRange.lower(); // Now map to otherRange
     }
 }

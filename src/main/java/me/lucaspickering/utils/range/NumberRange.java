@@ -1,4 +1,4 @@
-package me.lucaspickering.utils;
+package me.lucaspickering.utils.range;
 
 
 import org.jetbrains.annotations.NotNull;
@@ -42,7 +42,7 @@ abstract class NumberRange<T extends Number & Comparable<T>> implements Range<T>
      * @param lowerBound the value of the lower bound
      * @param upperBound the value of the upper bound
      */
-    public NumberRange(@NotNull T lowerBound, @NotNull T upperBound) {
+    NumberRange(@NotNull T lowerBound, @NotNull T upperBound) {
         this(lowerBound, BoundType.INCLUSIVE, upperBound, BoundType.INCLUSIVE);
     }
 
@@ -55,8 +55,8 @@ abstract class NumberRange<T extends Number & Comparable<T>> implements Range<T>
      * @param upperBound     the value of the upper bound
      * @param upperBoundType the type of the upper bound
      */
-    public NumberRange(@NotNull T lowerBound, @NotNull BoundType lowerBoundType,
-                       @NotNull T upperBound, @NotNull BoundType upperBoundType) {
+    NumberRange(@NotNull T lowerBound, @NotNull BoundType lowerBoundType,
+                @NotNull T upperBound, @NotNull BoundType upperBoundType) {
         // Check if lower > upper
         if (lowerBound.compareTo(upperBound) > 0) {
             throw new IllegalArgumentException(String.format(
@@ -66,6 +66,34 @@ abstract class NumberRange<T extends Number & Comparable<T>> implements Range<T>
         this.lowerBound = new Bound(lowerBound, lowerBoundType);
         this.upperBound = new Bound(upperBound, upperBoundType);
     }
+
+    /**
+     * Casts the given {@link Number} to be of this range's type.
+     *
+     * @param value the value to cast
+     * @return the casted value
+     */
+    abstract T cast(Number value);
+
+    /**
+     * Adds two numbers together. This is needed so that addition can be implemented on a
+     * type-by-type basis.
+     *
+     * @param value1 the first number
+     * @param value2 the second number
+     * @return {@code value1 + value2}
+     */
+    abstract T plus(T value1, T value2);
+
+    /**
+     * Subtracts the second number from the first. This is needed so that subtraction can be
+     * implemented on a type-by-type basis.
+     *
+     * @param value1 the first number
+     * @param value2 the second number
+     * @return {@code value1 - value2}
+     */
+    abstract T minus(T value1, T value2);
 
     @Override
     @NotNull
@@ -89,6 +117,12 @@ abstract class NumberRange<T extends Number & Comparable<T>> implements Range<T>
     @NotNull
     public BoundType upperType() {
         return upperBound.type;
+    }
+
+    @NotNull
+    @Override
+    public T span() {
+        return minus(upper(), lower());
     }
 
     @Override
@@ -115,6 +149,32 @@ abstract class NumberRange<T extends Number & Comparable<T>> implements Range<T>
 
         // Value is in the range, just return it
         return n;
+    }
+
+    @Override
+    public double normalize(@NotNull T value) {
+        final T coerced = coerce(value); // Coerce the value so that the output is [0, 1]
+        // (value - lower) / (upper - lower) -> [0, 1]
+        return minus(coerced, lower()).doubleValue() / span().doubleValue();
+    }
+
+    @NotNull
+    @Override
+    public T denormalize(double value) {
+        if (value < 0.0 || value > 1.0) {
+            throw new IllegalArgumentException("Given value must be in the range [0, 1]");
+        }
+
+        // (value * (upper - lower)) + lower
+        return plus(cast(value * span().doubleValue()), lower());
+    }
+
+    @NotNull
+    @Override
+    public <U extends Number & Comparable<U>> @NotNull U mapTo(@NotNull T value,
+                                                               @NotNull Range<U> targetRange) {
+        double normalized = normalize(value); // Normalize the value to [0, 1]
+        return targetRange.denormalize(normalized); // De-normalize the value to the new range
     }
 
     @Override

@@ -4,8 +4,8 @@ import org.junit.Test;
 
 import java.util.Random;
 
-import me.lucaspickering.utils.DoubleRange;
-import me.lucaspickering.utils.Range;
+import me.lucaspickering.utils.range.DoubleRange;
+import me.lucaspickering.utils.range.Range;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
