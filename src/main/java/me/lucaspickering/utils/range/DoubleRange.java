@@ -2,18 +2,23 @@ package me.lucaspickering.utils.range;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collection;
 import java.util.Random;
 
 public class DoubleRange extends NumberRange<Double> {
 
     public DoubleRange(@NotNull Double lowerBound,
                        @NotNull Double upperBound) {
-        super( lowerBound, upperBound);
+        super(lowerBound, upperBound);
     }
 
     public DoubleRange(@NotNull Double lowerBound, BoundType lowerBoundType,
                        @NotNull Double upperBound, BoundType upperBoundType) {
-        super( lowerBound, lowerBoundType, upperBound, upperBoundType);
+        super(lowerBound, lowerBoundType, upperBound, upperBoundType);
+    }
+
+    public DoubleRange(@NotNull Collection<Double> coll) {
+        super(coll);
     }
 
     @Override

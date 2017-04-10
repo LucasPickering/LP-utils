@@ -2,6 +2,7 @@ package me.lucaspickering.utils.range;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collection;
 import java.util.Random;
 
 public class IntRange extends NumberRange<Integer> {
@@ -15,6 +16,10 @@ public class IntRange extends NumberRange<Integer> {
     public IntRange(@NotNull Integer lowerBound, BoundType lowerBoundType,
                     @NotNull Integer upperBound, BoundType upperBoundType) {
         super(lowerBound, lowerBoundType, upperBound, upperBoundType);
+    }
+
+    public IntRange(@NotNull Collection<Integer> coll) {
+        super(coll);
     }
 
     @Override

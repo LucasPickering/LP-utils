@@ -3,6 +3,7 @@ package me.lucaspickering.utils.range;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collection;
 import java.util.Objects;
 
 abstract class NumberRange<T extends Number & Comparable<T>> implements Range<T> {
@@ -65,6 +66,31 @@ abstract class NumberRange<T extends Number & Comparable<T>> implements Range<T>
         }
         this.lowerBound = new Bound(lowerBound, lowerBoundType);
         this.upperBound = new Bound(upperBound, upperBoundType);
+    }
+
+    /**
+     * Constructs a new {@code NumberRange} with the lower bound and upper bound being the
+     * minimum and maximum values of the given collection, respectively. Both bounds will be
+     * inclusive. This range will be as small as possible while still including all values in the
+     * given colletion.
+     *
+     * @param coll the collection of numbers for this range to bound (non-empty)
+     * @throws IllegalArgumentException if the given collection is empty
+     */
+    NumberRange(@NotNull Collection<T> coll) {
+        this(min(coll), max(coll)); // Compute min and max of the given collection
+    }
+
+    private static <T extends Number & Comparable<T>> T min(@NotNull Collection<T> coll) {
+        return coll.stream()
+            .min(T::compareTo)
+            .orElseThrow(() -> new IllegalArgumentException("Collection cannot be empty"));
+    }
+
+    private static <T extends Number & Comparable<T>> T max(@NotNull Collection<T> coll) {
+        return coll.stream()
+            .max(T::compareTo)
+            .orElseThrow(() -> new IllegalArgumentException("Collection cannot be empty"));
     }
 
     /**
