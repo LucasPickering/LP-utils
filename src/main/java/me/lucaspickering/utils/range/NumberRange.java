@@ -171,8 +171,8 @@ abstract class NumberRange<T extends Number & Comparable<T>> implements Range<T>
 
     @NotNull
     @Override
-    public <U extends Number & Comparable<U>> @NotNull U mapTo(@NotNull T value,
-                                                               @NotNull Range<U> targetRange) {
+    public <U extends Number & Comparable<U>> U mapTo(@NotNull T value,
+                                                      @NotNull Range<U> targetRange) {
         double normalized = normalize(value); // Normalize the value to [0, 1]
         return targetRange.denormalize(normalized); // De-normalize the value to the new range
     }
