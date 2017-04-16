@@ -6,8 +6,6 @@ public class MathFuncs {
         // Don't allow instantiation
     }
 
-
-
     /**
      * Varargs version of {@link Math#min(int, int)}.
      *
