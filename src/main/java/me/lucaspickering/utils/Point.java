@@ -66,6 +66,10 @@ public class Point implements Cloneable {
         return new Point(this.x - x, this.y - y);
     }
 
+    public Point scale(double scale) {
+        return new Point(x * scale, y * scale);
+    }
+
     /**
      * Gets the Euclidean distance between this point and another point.
      *
