@@ -9,7 +9,9 @@ import java.util.stream.Collectors;
 public class Pair<T, U> {
 
     private static <T> BinaryOperator<T> throwingMerger() {
-        return (u,v) -> { throw new IllegalStateException(String.format("Duplicate key %s", u)); };
+        return (u, v) -> {
+            throw new IllegalStateException(String.format("Duplicate key %s", u));
+        };
     }
 
     private final U second;
@@ -33,13 +35,13 @@ public class Pair<T, U> {
     }
 
     public static <K, V, M extends Map<K, V>>
-    Collector<Pair<K, V>, ?, M> toMap(Supplier<M> mapSupplier) {
+    Collector<Pair<K, V>, ?, M> mapCollector(Supplier<M> mapSupplier) {
         return Collectors.toMap(Pair::first, Pair::second, throwingMerger(), mapSupplier);
     }
 
     public static <K, V, M extends Map<K, V>>
-    Collector<Pair<K, V>, ?, M> toMap(BinaryOperator<V> mergeFunction,
-                                      Supplier<M> mapSupplier) {
+    Collector<Pair<K, V>, ?, M> mapCollector(BinaryOperator<V> mergeFunction,
+                                             Supplier<M> mapSupplier) {
         return Collectors.toMap(Pair::first, Pair::second, mergeFunction, mapSupplier);
     }
 
