@@ -98,19 +98,11 @@ public class TestGeneralFuncs {
 
         // Test that chance of 0 always returns false
         assertFalse("Should always return false", GeneralFuncs.weightedChance(random, 0f));
+        assertFalse("Should always return false", GeneralFuncs.weightedChance(random, -1f));
 
         // Test that chance of 1 always returns true
         assertTrue("Should always return true", GeneralFuncs.weightedChance(random, 1f));
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testWeightedChanceTooLow() {
-        GeneralFuncs.weightedChance(new Random(), -0.1f);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testWeightedChanceTooHigh() {
-        GeneralFuncs.weightedChance(new Random(), 1.1f);
+        assertTrue("Should always return true", GeneralFuncs.weightedChance(random, 2f));
     }
 
     @Test
