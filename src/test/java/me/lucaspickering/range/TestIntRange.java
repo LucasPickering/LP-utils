@@ -1,4 +1,4 @@
-package me.lucaspickering;
+package me.lucaspickering.range;
 
 import org.junit.Test;
 
