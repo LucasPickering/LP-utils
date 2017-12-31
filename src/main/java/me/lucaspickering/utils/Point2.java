@@ -19,8 +19,8 @@ public class Point2 implements Cloneable {
     /**
      * Constructs a new {@code Point2} with the given x and y.
      *
-     * @param x the x-value
-     * @param y the y-value
+     * @param x the x value
+     * @param y the y value
      */
     public Point2(double x, double y) {
         this.x = x;

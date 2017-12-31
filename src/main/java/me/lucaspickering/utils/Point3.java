@@ -17,16 +17,26 @@ public class Point3 implements Cloneable {
     private final double x, y, z;
 
     /**
-     * Constructs a new {@code Point3} with the given x, y, and z.
+     * Construct a new {@code Point3} with the given x, y, and z.
      *
-     * @param x the x-value
-     * @param y the y-value
-     * @param z the z-value
+     * @param x the x value
+     * @param y the y value
+     * @param z the z value
      */
     public Point3(double x, double y, double z) {
         this.x = x;
         this.y = y;
         this.z = z;
+    }
+
+    /**
+     * Construct a new {@code Point3} with the x and y value from the given {@link Point2}, and the
+     * given z value.
+     * @param p the x and y values
+     * @param z the z value
+     */
+    public Point3(Point2 p, double z) {
+        this(p.x(), p.y(), z);
     }
 
     public double x() {

@@ -2,14 +2,21 @@ package me.lucaspickering;
 
 import org.junit.Test;
 
+import me.lucaspickering.utils.Point2;
 import me.lucaspickering.utils.Point3;
+
 import static org.junit.Assert.assertEquals;
 
 public class TestPoint3 {
 
     @Test
     public void testGetters() {
-        final Point3 p = new Point3(0.0, 1.0, 2.0);
+        Point3 p = new Point3(0.0, 1.0, 2.0);
+        assertEquals(0.0, p.x(), 0.0);
+        assertEquals(1.0, p.y(), 0.0);
+        assertEquals(2.0, p.z(), 0.0);
+
+        p = new Point3(new Point2(0.0, 1.0), 2.0);
         assertEquals(0.0, p.x(), 0.0);
         assertEquals(1.0, p.y(), 0.0);
         assertEquals(2.0, p.z(), 0.0);
