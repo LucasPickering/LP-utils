@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 import me.lucaspickering.utils.GeneralFuncs;
+import me.lucaspickering.utils.Pair;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -116,5 +117,19 @@ public class TestGeneralFuncs {
             final int randInt = GeneralFuncs.randomSlop(random, i, slop);
             assertTrue("Should be within the slop value", Math.abs(randInt - i) <= slop);
         }
+    }
+
+    @Test
+    public void testTimed() {
+        final long time = GeneralFuncs.timed(() -> {
+        });
+        assertTrue("Execution time should be >=0", time >= 0);
+    }
+
+    @Test
+    public void testTimedValue() {
+        final Pair<Long, Integer> rv = GeneralFuncs.timedValue(() -> 5);
+        assertTrue("Execution time should be >=0", rv.first() >= 0);
+        assertEquals("Incorrect return value", 5, (long) rv.second());
     }
 }

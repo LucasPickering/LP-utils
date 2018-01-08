@@ -2,12 +2,9 @@ package me.lucaspickering.utils;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class GeneralFuncs {
 
@@ -17,8 +14,8 @@ public class GeneralFuncs {
 
     /**
      * Returns the first element in a {@link Collection}. Technically collections don't have
-     * ordering so this is effectively the same as {@link #randomFromCollection}, but a little
-     * bit faster.
+     * ordering so this is effectively the same as {@link #randomFromCollection}, but a little bit
+     * faster.
      *
      * @param coll the collection to be chosen from (non-null, non-empty)
      * @param <T>  the type of the element in the collection
@@ -56,8 +53,8 @@ public class GeneralFuncs {
     }
 
     /**
-     * Randomly selects one element from the given non-empty collection. Each element has a
-     * chance of being chosen that is proportional to that element's return value from {@code
+     * Randomly selects one element from the given non-empty collection. Each element has a chance
+     * of being chosen that is proportional to that element's return value from {@code
      * weightFunction}.
      *
      * @param random         the {@link Random} to generate numbers from
@@ -113,5 +110,30 @@ public class GeneralFuncs {
      */
     public static int randomSlop(Random random, int x, int maxSlop) {
         return x + random.nextInt(maxSlop * 2 + 1) - maxSlop;
+    }
+
+    /**
+     * Run the given function and time how long it takes.
+     *
+     * @param func the function to run
+     * @return the time it took to execute, in milliseconds
+     */
+    public static long timed(Runnable func) {
+        final long startTime = System.currentTimeMillis();
+        func.run();
+        return System.currentTimeMillis() - startTime;
+    }
+
+    /**
+     * Run the given function and time how long it takes, returning both the execution time and the
+     * return value of the function.
+     *
+     * @param func the function to run
+     * @return the return value of the function and the time it took to execute, in milliseconds
+     */
+    public static <T> Pair<Long, T> timedValue(Supplier<T> func) {
+        final long startTime = System.currentTimeMillis();
+        final T rv = func.get();
+        return new Pair<>(System.currentTimeMillis() - startTime, rv);
     }
 }
